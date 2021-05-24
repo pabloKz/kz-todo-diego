@@ -41,13 +41,15 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 exports.__esModule = true;
 var client_1 = require("@prisma/client");
 var express_1 = __importDefault(require("express"));
+var cors_1 = __importDefault(require("cors"));
 var swagger_ui_express_1 = __importDefault(require("swagger-ui-express"));
 var swagger_output_json_1 = __importDefault(require("./swagger-output.json"));
 var app = express_1["default"]();
 var prisma = new client_1.PrismaClient();
 app.use(express_1["default"].json());
+app.use(cors_1["default"]());
 app.use(express_1["default"].urlencoded({ extended: true }));
-app.use('/', swagger_ui_express_1["default"].serve, swagger_ui_express_1["default"].setup(swagger_output_json_1["default"]));
+app.use("/swagger", swagger_ui_express_1["default"].serve, swagger_ui_express_1["default"].setup(swagger_output_json_1["default"]));
 app.post("/user", function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
     var email, user, newUser, _a;
     return __generator(this, function (_b) {
@@ -201,7 +203,7 @@ app.get("/todos/:userId", function (req, res) { return __awaiter(void 0, void 0,
         }
     });
 }); });
-var server = app.listen(3000, function () {
+app.listen((process.env.PORT || 3000), function () {
     console.log("Server listening");
 });
 //# sourceMappingURL=index.js.map

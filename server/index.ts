@@ -1,5 +1,6 @@
 import { PrismaClient } from "@prisma/client";
 import express from "express";
+import cors from "cors";
 import swagger from "swagger-ui-express";
 import swaggerDocument from "./swagger-output.json";
 
@@ -7,13 +8,14 @@ const app = express();
 const prisma = new PrismaClient();
 
 app.use(express.json());
+app.use(cors());
 app.use(express.urlencoded({ extended: true }));
-app.use("/", swagger.serve, swagger.setup(swaggerDocument));
+app.use("/swagger", swagger.serve, swagger.setup(swaggerDocument));
 
 app.post("/user", async (req, res) => {
   const { email } = req.body;
-
   console.log(email);
+
   if (!email) {
     res.status(400).send("User should include email field");
     return;
