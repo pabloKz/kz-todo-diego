@@ -1,15 +1,15 @@
 import { PrismaClient } from "@prisma/client";
 import express from "express";
-import swagger from 'swagger-ui-express';
-import swaggerDocument from './swagger-output.json'
+import swagger from "swagger-ui-express";
+import swaggerDocument from "./swagger-output.json";
 
 const app = express();
 const prisma = new PrismaClient();
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use('/', swagger.serve, swagger.setup(swaggerDocument))
- 
+app.use("/", swagger.serve, swagger.setup(swaggerDocument));
+
 app.post("/user", async (req, res) => {
   const { email } = req.body;
 
@@ -122,7 +122,6 @@ app.get("/todos/:userId", async (req, res) => {
   });
 });
 
-
-const server = app.listen(3000, () => {
+app.listen((process.env.PORT || 3000) as any, "0.0.0.0", () => {
   console.log("Server listening");
 });
