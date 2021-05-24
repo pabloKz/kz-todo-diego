@@ -203,7 +203,7 @@ app.get("/todos/:userId", function (req, res) { return __awaiter(void 0, void 0,
         }
     });
 }); });
-app.listen((process.env.PORT || 3000), function () {
+app.listen((process.env.PORT || 3000), "0.0.0.0", function () {
     console.log("Server listening");
 });
 //# sourceMappingURL=index.js.map

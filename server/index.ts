@@ -124,6 +124,6 @@ app.get("/todos/:userId", async (req, res) => {
   });
 });
 
-app.listen((process.env.PORT || 3000) as any, () => {
+app.listen((process.env.PORT || 3000) as any, "0.0.0.0", () => {
   console.log("Server listening");
 });
